@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es2016",
     "module": "commonjs",
-    "rootDir": "./src/server",
+    "rootDir": "./src",
     "outDir": "./dist",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
@@ -11,6 +11,8 @@
     "experimentalDecorators": true, // Включить поддержку декораторов
     "emitDecoratorMetadata": true   // Включить генерацию метаданных для декораторов
   },
-  "include": ["src/server/**/*"],
-  "exclude": ["src/client/**/*"]
+  "include": ["src/**/*"],
+  "exclude": [
+    "static/**/*"
+  ]
 }
