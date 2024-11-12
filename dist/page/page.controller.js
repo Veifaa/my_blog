@@ -20,9 +20,8 @@ let PageController = class PageController {
     constructor(pageService) {
         this.pageService = pageService;
     }
-    getMainPage(response) {
-        console.log("getMainPage endpoint hit");
-        response.sendFile((0, path_1.join)(__dirname, '..', '..', 'static', 'main.html'));
+    getMainPage(res) {
+        res.sendFile((0, path_1.join)(__dirname, '..', '..', 'static', 'page', 'main.html'));
     }
 };
 exports.PageController = PageController;
