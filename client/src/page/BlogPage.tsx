@@ -4,7 +4,7 @@ import { UserInfo } from '../components/UserInfo';
 
 export const BlogPage = () => {
   return (
-    <div className="min-h-screen p-8 text-white font-sans">
+    <div className="min-h-screen p-8 font-magra text-white font-sans">
       <div className="flex flex-col lg:flex-row-reverse gap-8">
         <UserInfo></UserInfo>
         <div className="lg:w-3/4 space-y-12">
