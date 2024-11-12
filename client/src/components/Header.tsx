@@ -2,7 +2,7 @@ import React from 'react'
 
 export const Header = () => {
     return (
-        <div className="bg-[#0C0C0C] p-6 flex items-center justify-between">
+        <div className="p-6 flex items-center justify-between">
 
             <div className="text-white text-3xl font-inter select-none">
                 <span className="text-white">Ve</span><span className="text-purple-600 font-bold bg-gradient-to-r from-blue-500 to-purple-600 text-transparent bg-clip-text">Q</span><span className="text-white">tra</span>
