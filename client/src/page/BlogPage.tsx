@@ -2,7 +2,6 @@ import React from 'react'
 
 export const BlogPage = () => {
   return (
-<<<<<<< HEAD
     <div className="bg-[#0C0C0C] min-h-screen p-8 text-white font-sans">
   <div className="flex flex-col lg:flex-row gap-8">
     <div className="lg:w-1/4 bg-gradient-to-br from-purple-600 to-purple-900 p-6 rounded-lg shadow-lg text-center">
@@ -56,9 +55,6 @@ export const BlogPage = () => {
   </div>
 </div>
 
-=======
-    <div>BlogPage</div>
->>>>>>> f755740e6654d64cf6a5cc9a973a9ce64fdf3102
   )
 }
 
