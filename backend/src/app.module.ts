@@ -2,13 +2,19 @@ import { Module } from '@nestjs/common';
 import {PageModule} from "./page/page.module";
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { DatabaseModule } from './database/database.module';
+import {ConfigModule} from "@nestjs/config";
+import { PostsModule } from './posts/posts.module';
 
 @Module({
    imports: [
+       ConfigModule.forRoot({ isGlobal: true }),
        ServeStaticModule.forRoot({
            rootPath: join(__dirname, '..', 'static')
        }),
-       PageModule],
+       PageModule,
+       DatabaseModule,
+       PostsModule],
    controllers : [],
     providers : []
 })

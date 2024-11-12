@@ -10,7 +10,7 @@ export class PageController {
 
     @Get()
     getMainPage(@Res() res : Response) : void {
-        res.sendFile(join(__dirname, '..', '..', 'static', 'page', 'main.html'));
+        // res.sendFile(join(__dirname, '..', '..', 'static', 'page', 'main.html'));
+        res.send('main page');
     }
-
 }
