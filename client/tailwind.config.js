@@ -8,6 +8,8 @@ module.exports = {
       colors: {
         'custom-purple': '#520172',
         'custom-blue': '#4205FA',
+        'main-purple': '#25014E',
+        
       },
     },
   },
