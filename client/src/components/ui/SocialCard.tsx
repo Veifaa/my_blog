@@ -1,4 +1,3 @@
-import React from "react";
 import chat from "../../assets/chat_bubble.png";
 
 const SocialCard = () => {
