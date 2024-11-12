@@ -1,1 +1,14 @@
-export class Post {}
+import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+
+@Entity()
+export class Post {
+    @PrimaryGeneratedColumn()
+    id!: number;
+
+    @Column()
+    title!: string;
+
+    constructor(Post:Partial<Post>) {
+        Object.assign(this, Post);
+    }
+}
