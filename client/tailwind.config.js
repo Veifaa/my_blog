@@ -4,6 +4,7 @@ module.exports = {
     extend: {
       fontFamily: {
         'inter': ['Inter', 'sans-serif'],
+        'magra': ['Magra', 'sans-serif'],
       },
       colors: {
         'custom-purple': '#520172',
