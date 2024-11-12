@@ -4,10 +4,13 @@ module.exports = {
     extend: {
       fontFamily: {
         'inter': ['Inter', 'sans-serif'],
+        'magra': ['Magra', 'sans-serif'],
       },
       colors: {
         'custom-purple': '#520172',
         'custom-blue': '#4205FA',
+        'main-purple': '#25014E',
+        
       },
     },
   },
