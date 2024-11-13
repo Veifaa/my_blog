@@ -9,13 +9,15 @@ export const BlogPage = () => {
         <UserInfo></UserInfo>
         <div className="lg:w-3/4 space-y-12">
           <div>
-            <h3 className="text-2xl font-bold mb-4">Pinned</h3>
+            <h3 className="text-3xl font-inter mb-4">Pinned</h3>
             <Post></Post>
           </div>
+          <div className="bg-gradient-to-r from-purple-950 to-transparent rounded h-1 my-4 rounded-full"></div>
           <div>
-            <h3 className="text-2xl font-bold mb-4">Destruct posts</h3>
+            <h3 className="text-3xl font-inter mb-4">Destruct posts</h3>
             <Post></Post>
           </div>
+          <div className='w-600 h-700'></div>
         </div>
       </div>
     </div>
