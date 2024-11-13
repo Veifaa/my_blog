@@ -2,7 +2,7 @@ import React from "react";
 
 const InfoCard = () => {
   return (
-    <div className='p-4 mt-1 bg-gradient-to-br from-[#1b0c20] to-black size-2/4 rounded-xl shadow-[0px_0px_3px_1px_rgba(79,0,128,0.3)]
+    <div className='p-4 bg-gradient-to-br from-[#1b0c20] to-black size-2/4 rounded-xl shadow-[0px_0px_3px_1px_rgba(79,0,128,0.3)]
      mt-2 min-h-96'>
       <h1 className='text-4xl'>Title</h1>
       <h2 className='text-1xl pt-3'>

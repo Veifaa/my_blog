@@ -1,19 +1,23 @@
 import React from 'react'
 import image from '../assets/Hello.webp'
 
-export const Post = () => {
+export const Pinnedpost = () => {
   return (
     <div className="bg-gradient-to-br from-[#1b0c20] to-black p-6 rounded-xl mb-8">
+      <div className="flex items-center mb-4">
+  <h3 className="text-2xl font-inter mr-4 select-none opacity-80">Pinned</h3>
+  <div className="flex-grow bg-gradient-to-r from-purple-950 to-transparent h-1 rounded-full relative">
+    <p className="text-lg opacity-55 mt-3 select-none absolute top-[-1.5rem] right-0">11.09.2024</p>
+  </div>
+</div>
       <div className="flex gap-6">
-        
         <div className="relative">
-          <p className="text-2xl pt-4 opacity-55 absolute top-[-1.5rem] left-0">11.09.2024</p>
-          <img src={image} alt="Post Image" className="rounded-sm w-60 h-80 object-cover border-1 border-purple-800 mt-8" />
+          <img src={image} alt="Post Image" className="rounded-sm w-60 h-80 object-cover border-1 border-purple-800 mt-1" />
         </div>
         
         <div className="flex flex-col justify-between flex-1">
           <div>
-            <h4 className="text-3xl text-white mt-8">Welcome to My Blog</h4>
+            <h4 className="text-3xl text-white mt-1">Welcome to My Blog</h4>
             <p className="mt-2 text-gray-200 text-sm leading-relaxed">
               Hello, and thanks for stopping by! I'm Destruct, a dedicated C++ developer with a passion for diving into the depths of code and unlocking the full potential of what C++ can offer. Here, I'll be sharing insights, tips, and projects that I hope will be valuable to fellow programmers, whether you're just starting out or have been coding for years.
             </p>
