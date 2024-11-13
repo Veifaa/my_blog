@@ -1,5 +1,5 @@
-import React from 'react'
-import { Post } from "../components/Post";
+import React from 'react';
+import { Post } from '../components/Post';
 import { UserInfo } from '../components/UserInfo';
 
 export const BlogPage = () => {
@@ -19,5 +19,5 @@ export const BlogPage = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
