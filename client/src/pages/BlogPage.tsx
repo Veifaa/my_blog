@@ -30,7 +30,9 @@ const BlogPage: FC = () => {
           <div className="w-600 h-700"></div>
         </div>
       </div>
+      <Footer></Footer>
     </div>
+    
     </>
   );
 };
