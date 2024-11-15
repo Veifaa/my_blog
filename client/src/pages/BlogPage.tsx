@@ -1,6 +1,7 @@
 import { Post } from '../components/Post';
 import { UserInfo } from '../components/UserInfo';
 import { Pinnedpost } from '../components/PinnedPost';
+import { Footer } from '../components/Footer';
 
 const BlogPage = () => {
   return (
@@ -25,6 +26,7 @@ const BlogPage = () => {
           <div className="w-600 h-700"></div>
         </div>
       </div>
+      <Footer></Footer>
     </div>
   );
 };

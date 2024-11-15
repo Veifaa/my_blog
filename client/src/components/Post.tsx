@@ -12,7 +12,7 @@ export const Post: FC = () => {
           <img
             src={image}
             alt="Post Image"
-            className="rounded-lg w-60 h-80 object-cover border-2 border-purple-800 mt-8"
+            className="rounded-lg w-60 h-80 object-cover mt-8"
           />
         </div>
 
@@ -40,12 +40,11 @@ export const Post: FC = () => {
           </div>
 
           <div className="mt-4 self-end">
-            <button
-              className="px-6 py-2 border-2  border-purple-600 text-purple-600 rounded-full 
-            font-semibold transition duration-200 hover:bg-gradient-to-r from-blue-700 to-purple-500"
-            >
-              Read More
-            </button>
+            <div className="bg-gradient-to-r from-blue-900 to-purple-900 p-[2px] rounded-full inline-block">
+              <button className="bg-[#080808] text-white px-8 py-2 rounded-full text-1xl hover:bg-inherit transition duration-400 hover:shadow-[1px_1px_15px_10px_rgba(60,0,128,0.3)]">
+                Read more
+              </button>
+            </div>
           </div>
         </div>
       </div>
