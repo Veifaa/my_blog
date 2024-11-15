@@ -1,10 +1,13 @@
-import React from "react";
+import { FC } from 'react';
 
-const InfoCard = () => {
+const InfoCard: FC = () => {
   return (
-    <div className='p-4 bg-gradient-to-bl from-[#25014E] to-[#000000] size-2/4 rounded-xl mt-2 min-h-96'>
-      <h1 className='text-5xl'>Title</h1>
-      <h2 className='text-2xl'>
+    <div
+      className="p-4 bg-gradient-to-br from-[#1b0c20] to-black size-2/4 rounded-xl shadow-[0px_0px_3px_1px_rgba(79,0,128,0.3)]
+     mt-2 min-h-96"
+    >
+      <h1 className="text-4xl">Title</h1>
+      <h2 className="text-1xl pt-3">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Non blanditiis
         consectetur nulla aliquam temporibus at ducimus quisquam neque doloribus
         tempora quos aut, facere repellendus odio labore in eos? Earum,

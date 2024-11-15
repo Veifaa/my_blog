@@ -1,7 +1,9 @@
+import { FC } from 'react';
 import img from '../assets/ss_bed14625da4c181e3334411fe03d5b72680761a3.jpg';
 import SocialCard from '../components/ui/SocialCard';
 import InfoCard from '../components/ui/UserCard';
-const UserPage = () => {
+
+const UserPage: FC = () => {
   return (
     <div className="mt-3 font-">
       <div className="relative flex justify-start items-end mx-14 bg-black  h-72">

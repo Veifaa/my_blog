@@ -1,6 +1,6 @@
-import React from 'react';
+import { FC } from 'react';
 
-export const Header = () => {
+export const Header: FC = () => {
   return (
     <div className="p-6 flex items-center justify-between">
       <div className="text-white text-3xl font-inter select-none">
