@@ -5,6 +5,7 @@ import { join } from 'path';
 import { DatabaseModule } from './database/database.module';
 import {ConfigModule} from "@nestjs/config";
 import { PostsModule } from './posts/posts.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
    imports: [
@@ -14,7 +15,9 @@ import { PostsModule } from './posts/posts.module';
        }),
        PageModule,
        DatabaseModule,
-       PostsModule],
+       PostsModule,
+       UsersModule,
+       ],
    controllers : [],
     providers : []
 })
