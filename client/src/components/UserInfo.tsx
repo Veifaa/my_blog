@@ -3,11 +3,11 @@ import Ava from '../assets/Ava.webp'
 
 export const UserInfo = () => {
   return (
-    <div className="lg:w-1/4 p-6 rounded-lg text-center relative ">
+    <div className="lg:w-1/4 p-6 sticky top-6 rounded-lg text-center">
       <div className="absolute left-0 top-4 bottom-4 w-1 bg-gradient-to-b from-main-purple to-transparent rounded"></div>
       
       <img src={Ava} alt="Profile" className="rounded-full object-cover cursor-pointer select-none mx-auto 
-       mb-4 w-24 h-24 shadow-[0px_123px_123px_123px_rgba(79,0,128,0.3)] hover:shadow-[1px_1px_30px_30px_rgba(100,0,128,0.3)]
+       mb-4 w-24 h-24 shadow-[0px_123px_123px_123px_rgba(79,0,128,0.3)]  hover:shadow-[1px_1px_30px_30px_rgba(100,0,128,0.3)]
        transition duration-300" />
       <h2 className="text-2xl font-semibold">destruct</h2>
       <p className="text-sm opacity-50 mt-1">Hello, I'm Destruct – C++ Developer</p>
@@ -24,5 +24,5 @@ export const UserInfo = () => {
             </button>
           </div>
     </div>
-)
+  )
 }
