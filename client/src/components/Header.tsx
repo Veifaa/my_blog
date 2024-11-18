@@ -1,5 +1,3 @@
-import { FC } from 'react';
-
 export const Header = () => {
   return (
     <div className="p-6 flex items-center justify-between">
@@ -12,7 +10,7 @@ export const Header = () => {
       </div>
 
       <div className="flex items-center space-x-4">
-      <button className="bg-gradient-to-r from-blue-900 to-purple-900 text-white px-8 py-2 rounded-full text-lg">
+        <button className="bg-gradient-to-r from-blue-900 to-purple-900 text-white px-8 py-2 rounded-full text-lg">
           Get started
         </button>
         <div className="bg-gradient-to-r from-blue-900 to-purple-900 p-[2px] rounded-full inline-block">

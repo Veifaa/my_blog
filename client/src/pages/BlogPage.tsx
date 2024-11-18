@@ -20,19 +20,22 @@ const BlogPage: FC = () => {
               Destruct posts
             </h3>
 
-          <div>
-            <Pinnedpost></Pinnedpost>
+            <div className="sticky">
+              <Pinnedpost></Pinnedpost>
+            </div>
+            <div className="bg-gradient-to-r from-purple-950 to-transparent h-1 my-4 rounded-full"></div>
+            <div>
+              <Post></Post>
+              <Post></Post>
+              <Post></Post>
+              <Post></Post>
+              <Post></Post>
+            </div>
+            <div className="w-600 h-700"></div>
           </div>
-          <div className="bg-gradient-to-r from-purple-950 to-transparent h-1 my-4 rounded-full"></div>
-          <div>
-            <Post></Post>
-          </div>
-          <div className="w-600 h-700"></div>
         </div>
+        <Footer></Footer>
       </div>
-      <Footer></Footer>
-    </div>
-    
     </>
   );
 };
