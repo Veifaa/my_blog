@@ -1,7 +1,7 @@
 import {OmitType} from "@nestjs/mapped-types";
 import {User} from '../entities/user.entity'
 import {IsEmail, IsOptional, IsString, MaxLength, MinLength} from "class-validator";
-class BaseCreateUserDTO extends OmitType(User, ['id', 'hash'] as const){}
+class BaseCreateUserDTO extends OmitType(User, ['id', 'hash', 'posts'] as const){}
 
 
 export class CreateUserDto extends BaseCreateUserDTO {
@@ -19,5 +19,5 @@ export class CreateUserDto extends BaseCreateUserDTO {
     @IsString()
     @IsEmail()
     @MaxLength(255, { message: 'Email too long'})
-    mail ?: string;
+    mail !: string;
 }

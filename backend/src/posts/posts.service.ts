@@ -1,56 +1,65 @@
-import {Injectable, NotFoundException} from '@nestjs/common';
+import {BadRequestException, Injectable, NotFoundException} from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import {EntityManager, Repository} from "typeorm";
 import {Post} from "./entities/post.entity";
 import {InjectRepository} from "@nestjs/typeorm";
+import {User} from "../users/entities/user.entity";
 
 @Injectable()
 export class PostsService {
   constructor(
       @InjectRepository(Post)
       private readonly postRepository: Repository<Post>,
+      private readonly userRepository: Repository<User>,
       private readonly entityManager: EntityManager) {}
 
-  async create(createPostDto: CreatePostDto) {
-    const post = new Post(createPostDto);
-    await this.entityManager.save(post);
-  }
-
-  async findAll() {
-    return this.postRepository.find();
-  }
-
   async findOne(id: number) {
-    return this.postRepository.findBy({id});
-  }
-
-  async update(id: number, updatePostDto: UpdatePostDto) {
-    const post = await this.postRepository.findOne({where : {id}});
-
+    const post = await this.postRepository.findOne({where : {id : id}});
     if(!post){
-      throw new NotFoundException(`Post with id ${id} not found`);
+      throw new BadRequestException('Post not found');
     }
-
-    if(!(updatePostDto.title || updatePostDto.content)){
-      throw new NotFoundException(`exception`);
+    return post;
+  }
+  async findAuthorAll(author : string){
+    const authorUser = await this.userRepository.findOne({ where: { username: author } });
+    if (!authorUser) {
+      throw new NotFoundException("Author not found");
     }
-
-
-    if(updatePostDto.title){
-      post.title = updatePostDto.title;
-    }
-
-    if(updatePostDto.content){
-      post.content = updatePostDto.content;
-    }
-
-
-    await this.entityManager.save(post);
-
+    return await this.postRepository.find({ where: { user: authorUser } });
   }
 
-  async remove(id: number) {
+  async create(createPostDto: CreatePostDto): Promise<void> {
+    const currentUser = await this.userRepository.findOne({ where: { username: createPostDto.username } });
+
+    if(!currentUser) {
+      throw new NotFoundException("User not found");
+    }
+
+    const post = this.entityManager.create(Post, {
+      ...createPostDto,
+      user: currentUser,
+    });
+
+    try {
+      await this.entityManager.save(post);
+    } catch (error) {
+      throw new NotFoundException('Failed to save the post');
+    }
+  }
+  async update(id : number, updatePostDto: UpdatePostDto) {
+    const result = await this.entityManager
+            .createQueryBuilder()
+            .update(Post)
+            .set(updatePostDto)
+            .where('id = :id', {id})
+            .execute();
+    if(result.affected === 0){
+      throw new NotFoundException("User not found");
+    }
+  }
+
+  async delete(id: number) {
     const post = await this.postRepository.findOne({where : {id}});
     if(!post) return;
     await this.entityManager.remove(post);

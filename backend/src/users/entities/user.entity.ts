@@ -1,4 +1,4 @@
-import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {Post} from "../../posts/entities/post.entity";
 
 
@@ -13,8 +13,11 @@ export class User {
     @Column()
     hash !: string;
 
-    @Column({default : 'example@example.com'})
-    mail ?: string;
+    @Column()
+    mail !: string;
+
+    @OneToMany(() => Post, (post) => post.user, {onDelete: "CASCADE"})
+    posts !: Post[];
 
     constructor(user:Partial<Post>) {
         Object.assign(this, user);

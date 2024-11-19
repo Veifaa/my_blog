@@ -1,4 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
+  NotFoundException,
+  ParseIntPipe, BadRequestException
+} from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
@@ -7,28 +18,31 @@ import { UpdatePostDto } from './dto/update-post.dto';
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
-  @Post()
-  async create(@Body() createPostDto: CreatePostDto) {
-    return this.postsService.create(createPostDto);
+  @Get(':id')
+  async getPost(@Param('id', ParseIntPipe) id: number) {
+    return await this.postsService.findOne(id);
   }
 
   @Get()
-  async findAll() {
-    return this.postsService.findAll();
+  async getPostAuthor(@Query('author') author : string){
+    if(!author){
+      throw new BadRequestException('Author query parameter is required');
+    }
+    return await this.postsService.findAuthorAll(author);
   }
 
-  @Get(':id')
-  async findOne(@Param('id') id: string) {
-    return this.postsService.findOne(+id);
+  @Post()
+  async createPost(@Body() createPostDto: CreatePostDto) {
+    return this.postsService.create(createPostDto);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
-    return this.postsService.update(+id, updatePostDto);
+  async updatePost(@Param('id', ParseIntPipe) id : number, @Body() updatePostDto: UpdatePostDto) {
+     return this.postsService.update(id, updatePostDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.postsService.remove(+id);
+  async deletePost(@Param('id',ParseIntPipe) id : number) {
+    return this.postsService.delete(id);
   }
 }
