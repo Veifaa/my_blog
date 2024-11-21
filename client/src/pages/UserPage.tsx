@@ -10,7 +10,7 @@ const UserPage: FC = () => {
       
 {/* Ник/ава/описание --------------------------------------- */}
       
-      <div className="lg:w-1/4 p-6 sticky top-6 rounded-lg text-center">
+      <div className="lg:w-1/4 p-6 top-6 rounded-lg text-center">
     <div className="absolute left-0 top-4 bottom-4 w-1 bg-gradient-to-b from-main-purple to-transparent rounded"></div>
       <img src={Ava} alt="Profile" draggable="false" className="rounded-full  object-cover pointer-events-none cursor-pointer select-none mx-auto 
        mb-4 w-48 h-48 shadow-[0px_123px_123px_123px_rgba(79,0,128,0.3)]" />
@@ -197,7 +197,7 @@ const UserPage: FC = () => {
 {/*-----------------------------------------------------------*/}
 
 {/*About me---------------------------------------------------*/}
-  <div className="md:w-3/2">
+  <div className="w-2/1">
   <div className="flex items-center mb-4">
       <h3 className="text-2xl font-inter mr-4 select-none opacity-80">
           About me
@@ -207,7 +207,7 @@ const UserPage: FC = () => {
           </p>
         </div>
       </div>
-    <p className="text-white text-base">
+    <p className="text-white w-3/2 text-base">
     Hello, I'm Destruct – an 18-year-old C++ developer based in Moscow, Russia. I specialize in low-level programming,
      performance optimization, and system design. With a deep passion for understanding how software interacts with 
      hardware, I focus on writing clean, efficient, and reliable code.
