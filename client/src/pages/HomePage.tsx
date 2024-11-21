@@ -1,21 +1,12 @@
 import { FC } from 'react';
-import { Header } from '../components/Header';
-import NewsCard from '../components/ui/NewsCard';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import Slider from 'react-slick';
+import Header from '../components/Header';
+import Slider from '../components/ui/SliderUi';
+import Footer from '../components/Footer';
+
 const HomePage: FC = () => {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
   return (
     <>
       <Header />
-
       <div>
         <div className="flex justify-center mt-20 mb-24">
           <h1 className="text-9xl font-inter">
@@ -26,11 +17,24 @@ const HomePage: FC = () => {
             tra
           </h1>
         </div>
-
         <div className="mx-48">
           <h1 className="text-[64px]">News</h1>
-          <div className="flex"> </div>
+          <div className=" max-w-full h-[407px] mx-auto ">
+            <Slider />
+          </div>
         </div>
+        <div className="rounded-[34px] flex items-center justify-center mb-20 mt-20 mx-48 bg-gradient-to-r from-[#1b0c20] to-black h-96">
+          <div className="">
+            <h1 className="text-center text-4xl">Create your blog</h1>
+            <button
+              className="mt-6 w-[306px] h-16 text-2xl text-center bg-gradient-to-r from-blue-900 to-purple-900 rounded-[31px]"
+              type="button"
+            >
+              Get started
+            </button>
+          </div>
+        </div>
+        <Footer />
       </div>
     </>
   );

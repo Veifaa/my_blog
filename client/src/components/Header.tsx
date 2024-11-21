@@ -1,4 +1,4 @@
-export const Header = () => {
+const Header = () => {
   return (
     <div className="p-6 flex items-center justify-between">
       <div className="text-white text-3xl ml-3 cursor-pointer font-inter select-none flex items-center">
@@ -22,3 +22,5 @@ export const Header = () => {
     </div>
   );
 };
+
+export default Header;

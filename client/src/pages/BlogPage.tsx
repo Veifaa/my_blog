@@ -2,8 +2,8 @@ import { Post } from '../components/Post';
 import { UserInfo } from '../components/UserInfo';
 import { Pinnedpost } from '../components/PinnedPost';
 import { FC } from 'react';
-import { Header } from '../components/Header';
-import { Footer } from '../components/Footer';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 const BlogPage: FC = () => {
   return (
