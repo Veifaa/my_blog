@@ -3,7 +3,13 @@ import HomePage from './pages/HomePage';
 import UserPage from './pages/UserPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-import { USER_ROUTE, BLOG_ROUTE, HOME_PAGE, LOGIN_ROUTE, REGISTER_ROUTE } from './utils/ConstRouter';
+import {
+  USER_ROUTE,
+  BLOG_ROUTE,
+  HOME_PAGE,
+  LOGIN_ROUTE,
+  REGISTER_ROUTE,
+} from './utils/ConstRouter';
 export const publicRoutes = [
   {
     Component: BlogPage,
@@ -26,6 +32,5 @@ export const publicRoutes = [
     path: REGISTER_ROUTE,
   },
 ];
-
 
 export const privateRoutes = [];
