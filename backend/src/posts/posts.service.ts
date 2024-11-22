@@ -11,6 +11,7 @@ export class PostsService {
   constructor(
       @InjectRepository(Post)
       private readonly postRepository: Repository<Post>,
+      @InjectRepository(User)
       private readonly userRepository: Repository<User>,
       private readonly entityManager: EntityManager) {}
 
@@ -47,15 +48,17 @@ export class PostsService {
       throw new NotFoundException('Failed to save the post');
     }
   }
-  async update(id : number, updatePostDto: UpdatePostDto) {
+  async update(id: number, updatePostDto: UpdatePostDto): Promise<void> {
     const result = await this.entityManager
-            .createQueryBuilder()
-            .update(Post)
-            .set(updatePostDto)
-            .where('id = :id', {id})
-            .execute();
-    if(result.affected === 0){
-      throw new NotFoundException("User not found");
+        .createQueryBuilder()
+        .update(Post)
+        .set(updatePostDto)
+        .where('id = :id', { id })
+        .returning('*') // Return the updated post
+        .execute();
+
+    if (result.affected === 0) {
+      throw new NotFoundException('Post not found');
     }
   }
 
