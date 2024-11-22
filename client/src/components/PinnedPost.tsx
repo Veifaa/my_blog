@@ -1,6 +1,7 @@
+import { FC } from 'react';
 import image from '../assets/Hello.webp';
 
-export const Pinnedpost = () => {
+export const Pinnedpost: FC = () => {
   return (
     <div className="bg-gradient-to-br from-[#1b0c20] to-black p-6 rounded-xl mb-8">
       <div className="flex items-center mb-4">
