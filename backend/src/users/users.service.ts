@@ -4,10 +4,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import {EntityManager, Repository} from 'typeorm';
 import { User } from './entities/user.entity';
 import { LoginUserDto } from './dto/login-user.dto';
-import { Response } from 'express';
+import { Response, Request } from 'express';
 import { SecurityService } from './user-security.service';
 import {AuthToken} from "./entities/auth.token";
-import {Post} from "../posts/entities/post.entity";
+import {CheckResponse, CheckResponseStructure} from "./user-response/response/response";
 
 @Injectable()
 export class UsersService {
@@ -50,6 +50,7 @@ export class UsersService {
         loginUserDto.password,
         user.hash,
     );
+
     if (!isPasswordValid) {
       throw new UnauthorizedException('Invalid username or password');
     }
@@ -67,5 +68,18 @@ export class UsersService {
     tokenEntity.expiresAt = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000); // 3 days expiration
     await this.entityManager.save(tokenEntity);
   }
+  async check(req : Request, res : Response) : Promise<CheckResponseStructure>{
+    if(!await this.securityService.isAuth(req, res)) return CheckResponse.UNAUTHORIZED();
 
+    const temp = this.securityService.getCookieToken(req);
+
+    const token = await this.tokenRepository.findOne({where : {token : temp}});
+
+    if(!token) return CheckResponse.UNAUTHORIZED();
+
+    return CheckResponse.AUTHORIZED_USER(token.user.username);
+  }
+  async logout(req : Request, res : Response){
+    await this.securityService.logout(req, res);
+  }
 }

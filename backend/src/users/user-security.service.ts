@@ -4,6 +4,7 @@ import { Response, Request } from "express";
 import {EntityManager, Repository} from "typeorm";
 import {AuthToken} from "./entities/auth.token";
 import {InjectRepository} from "@nestjs/typeorm";
+import {CheckResponse} from "./user-response/response/response";
 
 @Injectable()
 export class SecurityService {
@@ -38,7 +39,7 @@ export class SecurityService {
         return token;
     }
 
-    async isAuth(req : Request) : Promise<boolean>{
+    async isAuth(req : Request, res: Response) : Promise<boolean>{
         const token = this.getCookieToken(req);
         if(!token){
             return false;
@@ -47,8 +48,43 @@ export class SecurityService {
         if(!entity){
             return false;
         }
+        const time = entity.expiresAt.getTime() > Date.now();
+
+        if(time){
+            return true;
+        }
+        this.logout(req, res);
+
+        return false;
+    }
+
+    async logout(req: Request, res: Response): Promise<boolean> {
+        const temp = this.getCookieToken(req);
+
+        // Проверяем наличие токена в базе данных
+        const token = await this.tokenRepository.findOne({ where: { token: temp } });
+
+        // Если токена нет, очищаем cookie и возвращаем false
+        if (!token) {
+            res.clearCookie('AuthToken', {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: 'strict',
+            });
+            return false;
+        }
+
+        await this.tokenRepository.remove(token);
+
+        res.clearCookie('AuthToken', {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict',
+        });
+
         return true;
     }
+
 
     async getProfileByToken(token : string){
         if(!token){
