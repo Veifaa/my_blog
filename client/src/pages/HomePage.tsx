@@ -2,7 +2,6 @@ import { FC } from 'react';
 import Header from '../components/Header';
 import Slider from '../components/ui/SliderUi';
 import Footer from '../components/Footer';
-
 const HomePage: FC = () => {
   return (
     <>
