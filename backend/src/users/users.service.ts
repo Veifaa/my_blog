@@ -80,6 +80,6 @@ export class UsersService {
     return CheckResponse.AUTHORIZED_USER(token.user.username);
   }
   async logout(req : Request, res : Response){
-    await this.securityService.logout(req, res);
+    await this.securityService.removeToken(req, res);
   }
 }

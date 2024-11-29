@@ -4,7 +4,7 @@ import { Response, Request } from "express";
 import {EntityManager, Repository} from "typeorm";
 import {AuthToken} from "./entities/auth.token";
 import {InjectRepository} from "@nestjs/typeorm";
-import {CheckResponse} from "./user-response/response/response";
+import {User} from "./entities/user.entity";
 
 @Injectable()
 export class SecurityService {
@@ -53,12 +53,31 @@ export class SecurityService {
         if(time){
             return true;
         }
-        this.logout(req, res);
+        this.removeToken(req, res);
 
         return false;
     }
+    async getUserByCookie(req : Request, res : Response) : Promise<User>{
+        const token = this.getCookieToken(req);
+        if(!token){
+            throw new UnauthorizedException("Cookie not found");
+        }
+        const entity = await this.tokenRepository.findOne({where : {token: token}});
 
-    async logout(req: Request, res: Response): Promise<boolean> {
+        if(!entity){
+            throw new UnauthorizedException("Invalid cookie token");
+        }
+        const isTokenValid = entity.expiresAt.getTime() > Date.now();
+
+        if(!isTokenValid){
+            this.removeToken(req, res);
+            throw new UnauthorizedException("Invalid cookie token");
+        }
+
+        return entity.user;
+    }
+
+    async removeToken(req: Request, res: Response): Promise<boolean> {
         const temp = this.getCookieToken(req);
 
         // Проверяем наличие токена в базе данных
@@ -83,22 +102,6 @@ export class SecurityService {
         });
 
         return true;
-    }
-
-
-    async getProfileByToken(token : string){
-        if(!token){
-            throw new UnauthorizedException("Cookie not found");
-        }
-        const entity = await this.tokenRepository.findOne({where: {token: token}});
-        if(!entity){
-            throw new UnauthorizedException("Uncorrect Cookie");
-        }
-        const data = {
-            username : entity.user.username
-            //other data
-        }
-        return data;
     }
     generateAuthToken(): string {
         const seed = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";

@@ -10,5 +10,6 @@ import {SecurityService} from "./user-security.service";
   imports : [TypeOrmModule.forFeature([User, AuthToken])],
   controllers: [UsersController],
   providers: [UsersService, SecurityService],
+  exports : [SecurityService],
 })
 export class UsersModule {}

@@ -1,6 +1,6 @@
 import {Post} from "../entities/post.entity";
-import {OmitType, PartialType} from "@nestjs/mapped-types";
-import {IsNotEmpty, IsNumber, IsString} from "class-validator";
+import {OmitType} from "@nestjs/mapped-types";
+import {IsNotEmpty, IsString} from "class-validator";
 
 export class CreatePostDto extends OmitType(Post, ['id', 'likes', 'views', 'user'] as const) {
     @IsString()
@@ -10,9 +10,5 @@ export class CreatePostDto extends OmitType(Post, ['id', 'likes', 'views', 'user
     @IsString()
     @IsNotEmpty()
     content!: string;
-
-    @IsString()
-    @IsNotEmpty()
-    username !: string;
 }
 
