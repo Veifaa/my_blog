@@ -1,9 +1,12 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import Header from '../components/Header';
 import Slider from '../components/ui/SliderUi';
 import Footer from '../components/Footer';
-
+import { postById } from '../http/postAPI';
 const HomePage: FC = () => {
+  useEffect(() => {
+postById(7)
+  })
   return (
     <>
       <Header />
