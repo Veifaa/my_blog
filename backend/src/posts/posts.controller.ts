@@ -25,12 +25,15 @@ export class PostsController {
   }
 
   @Get()
-  async getPostAuthor(@Query('author') author : string){
-    if(!author){
-      throw new BadRequestException('Author query parameter is required');
+  async getPostAuthor(@Query('author') author : string, @Query('page', ParseIntPipe) page: number, @Query('limit', ParseIntPipe) limit: number) {
+    if(!author || !page || !limit){
+      throw new BadRequestException('All query parameter is required (author, page, limit)');
     }
-    return await this.postsService.findAuthorAll(author);
-    //сколько-то постов дать
+    if(page < 1 || limit < 1){
+      throw new BadRequestException('incorrect parameters');
+    }
+
+    return await this.postsService.findAuthorsPosts(author, page, limit);
   }
 
   @Post()

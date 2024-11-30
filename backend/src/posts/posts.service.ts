@@ -26,12 +26,28 @@ export class PostsService {
     }
     return post;
   }
-  async findAuthorAll(author : string){
+  async findAuthorsPosts(author : string, page : number, limit : number){
     const authorUser = await this.userRepository.findOne({ where: { username: author } });
     if (!authorUser) {
       throw new NotFoundException("Author not found");
     }
-    return await this.postRepository.find({ where: { user: authorUser } });
+
+    const offset = limit * (page - 1);
+
+    const [posts, totalPosts] = await this.postRepository.findAndCount({
+      where: { user: authorUser }, // Фильтруем по автору
+      skip: offset,
+      take: limit,
+      order: { id: 'asc' },
+    });
+
+    const totalPages = Math.ceil(totalPosts / limit);
+
+    return {
+      posts : posts,
+      totalPage: totalPages,
+      limit : limit,
+    };
   }
 
   async create(createPostDto: CreatePostDto, req : Request, res : Response): Promise<void> {
