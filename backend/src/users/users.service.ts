@@ -35,51 +35,56 @@ export class UsersService {
     await this.userRepository.save(user);
   }
 
-  async login(loginUserDto: LoginUserDto, res: Response): Promise<void> {
-    const user = await this.userRepository.findOne({
-      where: { username: loginUserDto.username },
+  async login(loginUserDto: LoginUserDto, req : Request, res: Response): Promise<void> {
+    if((!loginUserDto.username && !loginUserDto.mail) || !loginUserDto.password){
+      throw new BadRequestException("Some required fields are missing or do not match");
+    }
+
+    let user;
+    if(loginUserDto.username){
+      user = await this.userRepository.findOne({
+        where : {username : loginUserDto.username}
+      })
+    }
+    else{
+      user = await this.userRepository.findOne({
+        where : {mail : loginUserDto.mail}
+      })
+    }
+
+    if(!user){
+      throw new BadRequestException("User does not exist");
+    }
+
+    if(! await this.securityService.comparePasswords(loginUserDto.password, user.hash)){
+      throw new BadRequestException("Wrong Password");
+    }
+
+    const tokenSTR  = this.securityService.generateAuthToken();
+
+    const token = this.tokenRepository.create({
+      user: user,
+      token: tokenSTR,
+      createdAt: new Date(), // текущая дата и время
+      expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 3), // добавляем 3 дня, в миллисекундах
     });
 
-    // Check if the user exists
-    if (!user) {
-      throw new UnauthorizedException('Invalid username or password');
-    }
 
-    // Verify the password
-    const isPasswordValid = await this.securityService.comparePasswords(
-        loginUserDto.password,
-        user.hash,
-    );
+    this.securityService.setCookieToken(res,tokenSTR);
 
-    if (!isPasswordValid) {
-      throw new UnauthorizedException('Invalid username or password');
-    }
+    console.log('before db');
+    await this.tokenRepository.save(token);
+    console.log('after db');
 
-    // Generate a token
-    const generatedToken = this.securityService.generateAuthToken();
-
-    // Set the token as a cookie
-    this.securityService.setCookieToken(res, generatedToken);
-
-    // Save the token in the database
-    const tokenEntity = new AuthToken();
-    tokenEntity.token = generatedToken;
-    tokenEntity.user = user;
-    tokenEntity.expiresAt = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000); // 3 days expiration
-    await this.entityManager.save(tokenEntity);
+    res.status(200).send('Вы успешно авторизированы');
   }
-  async check(req : Request, res : Response) : Promise<CheckResponseStructure>{
-    if(!await this.securityService.isAuth(req, res)) return CheckResponse.UNAUTHORIZED();
-
-    const temp = this.securityService.getCookieToken(req);
-
-    const token = await this.tokenRepository.findOne({where : {token : temp}});
-
-    if(!token) return CheckResponse.UNAUTHORIZED();
-
-    return CheckResponse.AUTHORIZED_USER(token.user.username);
+  async check(req : Request, res : Response){
+    const user = await this.securityService.getUserByCookie(req, res);
+    console.log(user);
+    res.status(200).send(user.username);
   }
   async logout(req : Request, res : Response){
     await this.securityService.removeToken(req, res);
+    res.status(200).send('you are logged out');
   }
 }

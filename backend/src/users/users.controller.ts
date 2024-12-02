@@ -13,8 +13,8 @@ export class UsersController {
     return await this.usersService.register(createUserDto);
   }
   @Post('login')
-  async login(@Body() loginUserDto: LoginUserDto, @Res() res : Response) {
-    return await this.usersService.login(loginUserDto, res);
+  async login(@Body() loginUserDto: LoginUserDto, @Req()req : Request ,@Res() res : Response) {
+    return await this.usersService.login(loginUserDto, req,res);
   }
   @Get('check')
   async check(@Req() req: Request, @Res() res : Response) {

@@ -57,25 +57,35 @@ export class SecurityService {
 
         return false;
     }
-    async getUserByCookie(req : Request, res : Response) : Promise<User>{
+    async getUserByCookie(req: Request, res: Response): Promise<User> {
         const token = this.getCookieToken(req);
-        if(!token){
+
+        if (!token) {
             throw new UnauthorizedException("Cookie not found");
         }
-        const entity = await this.tokenRepository.findOne({where : {token: token}});
 
-        if(!entity){
+        const entity = await this.tokenRepository.findOne({
+            where: { token: token },
+            relations: ['user']  // Явно загружаем пользователя вместе с токеном
+        });
+
+        if (!entity) {
             throw new UnauthorizedException("Invalid cookie token");
         }
+
         const isTokenValid = entity.expiresAt.getTime() > Date.now();
 
-        if(!isTokenValid){
+        if (!isTokenValid) {
             this.removeToken(req, res);
             throw new UnauthorizedException("Invalid cookie token");
         }
 
+        if (!entity.user) {
+            throw new UnauthorizedException("User not found for token");
+        }
         return entity.user;
     }
+
 
     async removeToken(req: Request, res: Response): Promise<boolean> {
         const temp = this.getCookieToken(req);

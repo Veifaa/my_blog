@@ -86,12 +86,15 @@ export class PostsService {
       return;
     }
 
-    const post = await this.postRepository.findOne({where : {id : id}});
+    const post = await this.postRepository.findOne({
+      where : {id : id},
+      relations: ['user']
+    });
     if(!post){
       throw new NotFoundException('Post not found');
     }
 
-    if(post.user !== currentUser){
+    if(post.user.username !== currentUser.username){
       throw new BadRequestException('You cant change this post');
     }
 
@@ -106,6 +109,8 @@ export class PostsService {
     if (result.affected === 0) {
       throw new NotFoundException('Post not found');
     }
+
+    res.status(200).send('Post succsessfully changed');
   }
 
   async delete(id: number, req : Request, res : Response): Promise<void> {
